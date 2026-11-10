@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}نتیجه درخواست{% endblock %}
+{% block content %}
+<section class="panel result"><span class="eyebrow">درخواست ثبت شد</span><h1>درخواست شما برای {{ doctor.name }} ارسال شد</h1>
+<div class="status">{{ record["status"] }}</div><h3>نتیجه غربالگری اولیه</h3><p>{{ record["triage"] }}</p>
+<p class="muted">این نتیجه صرفاً یک هشدار ساده بر اساس متن ورودی است و تشخیص پزشکی محسوب نمی‌شود. تصمیم درمانی باید توسط پزشک گرفته شود.</p>
+{% if record["prescription_code"] %}
+<div class="codebox"><small>کد نسخه نمایشی</small><strong>{{ record["prescription_code"] }}</strong><p>{{ record["prescription_note"] or "توضیحی ثبت نشده است." }}</p></div>
+<a class="button" href="{{ url_for('chat', consultation_id=record['id']) }}">ورود به گفت‌وگو با پزشک</a>
+{% else %}<div class="notice">پس از بررسی پزشک، در صورت صلاحدید او وضعیت درخواست به‌روزرسانی می‌شود. در این نسخه نمایشی کد داروخانه واقعی صادر نمی‌شود.</div>{% endif %}
+</section>
+{% endblock %}

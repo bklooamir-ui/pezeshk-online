@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}پنل پزشک{% endblock %}
+{% block content %}<section class="hero"><span class="eyebrow">محیط آزمایشی</span><h1>درخواست‌های بیماران</h1><p>این پنل برای نمایش گردش کار است و ورود امن ندارد.</p></section>
+{% for r in records %}
+<div class="panel case"><div><strong>#{{ r["id"] }} — {{ r["patient_name"] }}</strong><p>{{ doctors[r["doctor_id"]]["name"] }} · {{ r["created_at"] }}</p><p>{{ r["triage"] }}</p><span class="status">{{ r["status"] }}</span></div>
+<div class="case-actions"><a class="button secondary" href="{{ url_for('result', consultation_id=r['id']) }}">مشاهده</a>
+{% if not r["prescription_code"] %}<form method="post" action="{{ url_for('approve', consultation_id=r['id']) }}"><input name="note" placeholder="یادداشت و دستور پزشک"><button class="button" type="submit">تأیید پزشک و ایجاد کد دمو</button></form>{% else %}<a class="button" href="{{ url_for('chat', consultation_id=r['id']) }}">چت</a>{% endif %}</div></div>
+{% else %}<div class="panel">هنوز درخواستی ثبت نشده است.</div>{% endfor %}
+{% endblock %}

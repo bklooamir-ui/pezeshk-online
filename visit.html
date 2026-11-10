@@ -1,0 +1,28 @@
+{% extends "base.html" %}{% block title %}فرم ویزیت {{ doctor.name }}{% endblock %}
+{% block content %}
+<section class="form-head {{ doctor.color }}"><span class="eyebrow">فرم تخصصی ویزیت</span><h1>{{ doctor.name }}</h1><p>{{ doctor.specialty }}</p></section>
+<form class="panel form" method="post" enctype="multipart/form-data">
+<h2>اطلاعات تماس</h2>
+<div class="fields"><label>نام و نام خانوادگی<input name="patient_name" required></label><label>شماره تماس<input name="patient_phone" required inputmode="tel"></label></div>
+<h2>سؤالات تخصصی</h2>
+<div class="fields">
+{% for key, label, kind in questions %}
+<label>{{ label }}
+{% if kind == "textarea" %}<textarea name="{{ key }}" rows="3"></textarea>
+{% elif kind == "select" %}
+<select name="{{ key }}"><option value="">انتخاب کنید</option>
+{% if key == "sex" %}<option>زن</option><option>مرد</option><option>ترجیح می‌دهم نگویم</option>
+{% elif key == "pregnancy" %}<option>بله</option><option>خیر</option><option>مطمئن نیستم</option>
+{% elif key == "injury" %}<option>بله</option><option>خیر</option><option>مطمئن نیستم</option>
+{% elif key == "temperature_sensitivity" %}<option>بله</option><option>خیر</option><option>گاهی</option>
+{% else %}<option>بله</option><option>خیر</option><option>مطمئن نیستم</option>{% endif %}</select>
+{% else %}<input name="{{ key }}" type="{{ kind }}" {% if kind == "number" %}min="0"{% endif %}>{% endif %}
+</label>
+{% endfor %}
+</div>
+<h2>شرح حال تکمیلی</h2><label>هر توضیح دیگری که فکر می‌کنید مهم است<textarea name="history_free" rows="5" placeholder="علائم، زمان شروع، نگرانی‌ها و..."></textarea></label>
+<label class="upload">📎 بارگذاری عکس یا مدرک پزشکی<input type="file" name="attachment" accept=".png,.jpg,.jpeg,.webp,.pdf"><small>حداکثر ۸ مگابایت؛ PNG، JPG، WEBP یا PDF</small></label>
+<div class="notice warning">در صورت علائم شدید یا اورژانسی، منتظر پاسخ آنلاین نمانید و با اورژانس محل تماس بگیرید. این فرم جایگزین معاینه نیست.</div>
+<button class="button" type="submit">ثبت درخواست ویزیت</button>
+</form>
+{% endblock %}

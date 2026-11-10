@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}گفت‌وگو با پزشک{% endblock %}
+{% block content %}<section class="panel"><span class="eyebrow">گفت‌وگوی مرتبط با پرونده</span><h1>{{ doctor.name }}</h1><p>این گفت‌وگو فقط نمونه محلی است و پیام‌رسانی بلادرنگ ندارد.</p>
+<div class="chat">
+{% for m in messages %}<div class="message"><b>{{ m["sender"] }}</b><p>{{ m["body"] }}</p><small>{{ m["created_at"] }}</small></div>{% else %}<p class="muted">هنوز پیامی ثبت نشده است.</p>{% endfor %}
+</div>
+<form method="post" class="chat-form"><select name="sender"><option>بیمار</option><option>پزشک (دمو)</option></select><textarea name="body" required placeholder="پیام خود را بنویسید"></textarea><button class="button">ارسال پیام</button></form>
+</section>{% endblock %}

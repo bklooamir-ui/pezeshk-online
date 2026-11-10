@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}{{ doctor.name }} | همراه‌پزشک{% endblock %}
+{% block content %}
+<section class="profile {{ doctor.color }}"><div class="portrait large"><span>{{ doctor.symbol }}</span></div>
+<div><span class="eyebrow">پروفایل پزشک</span><h1>{{ doctor.name }}</h1><h3>{{ doctor.specialty }}</h3><p>{{ doctor.bio }}</p>
+<a class="button" href="{{ url_for('visit', doctor_id=doctor_id) }}">ورود به فرم ویزیت</a></div></section>
+<div class="panel"><h2>نظرات بیماران</h2>{% for r in doctor.reviews %}<p class="review-line">★ ★ ★ ★ ★ &nbsp; {{ r }}</p>{% endfor %}</div>
+{% endblock %}

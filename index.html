@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block title %}انتخاب پزشک | همراه‌پزشک{% endblock %}
+{% block content %}
+<section class="hero"><span class="eyebrow">ویزیت آنلاین و پرونده دیجیتال</span><h1>پزشک مناسب خودت را انتخاب کن</h1>
+<p>فرم اختصاصی هر تخصص را تکمیل کن تا درخواستت برای بررسی پزشک ثبت شود.</p></section>
+<div class="grid">
+{% for key, d in doctors.items() %}
+<article class="doctor-card {{ d.color }}">
+  <div class="portrait {{ d.color }}"><span>{{ d.symbol }}</span><small>{{ "پزشک خانم" if d.gender == "زن" else "پزشک آقا" }}</small></div>
+  <div class="card-body"><h2>{{ d.name }}</h2><p class="specialty">{{ d.specialty }}</p>
+  <p class="bio">{{ d.bio }}</p><div class="reviews">{% for review in d.reviews %}<p>“{{ review }}”</p>{% endfor %}</div>
+  <a class="button" href="{{ url_for('doctor', doctor_id=key) }}">مشاهده و شروع ویزیت</a></div>
+</article>
+{% endfor %}
+</div>
+{% endblock %}
